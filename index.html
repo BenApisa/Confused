@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>CONFUSED</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Add this line -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>CONFUSED</h1>
-    <button onclick="showMessage('Yes')">Yes</button>
-    <button onclick="showMessage('No')">No</button>
-    <button onclick="showMessage('Maybe')">Maybe</button>
-    <button onclick="addFlower()">🌸 Add Flower</button> <!-- New button -->
-    <p id="response"></p>
-    <div id="garden"></div> <!-- Flower container -->
+    <div class="container">
+        <h1>CONFUSED</h1>
+        <div class="button-group">
+            <button onclick="showMessage('Yes')">Yes</button>
+            <button onclick="showMessage('No')">No</button>
+            <button onclick="showMessage('Maybe')">Maybe</button>
+            <button onclick="addFlower()">🌸 Add Flower</button>
+        </div>
+        <p id="response"></p>
+        <div id="scene"></div> <!-- Scene area -->
+        <div id="garden"></div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

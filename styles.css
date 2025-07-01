@@ -1,50 +1,90 @@
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin-top: 50px;
-    background: #f0f0f0;
-    padding: 0 10px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #e0e7ff 0%, #fff 100%);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 500px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(60,60,120,0.12);
+    padding: 32px 16px 40px 16px;
 }
 
 h1 {
-    font-size: 3em;
-    margin-bottom: 30px;
+    font-size: 2.5em;
+    margin-bottom: 24px;
+    letter-spacing: 2px;
+    color: #3a3a6a;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 18px;
 }
 
 button {
-    margin: 10px;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    cursor: pointer;
+    padding: 12px 28px;
+    font-size: 1.1em;
     border-radius: 8px;
     border: none;
-    background: #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: background 0.2s;
+    background: #e0e7ff;
+    color: #3a3a6a;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(60,60,120,0.08);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
 }
 
 button:active {
-    background: #ffe0f0;
+    background: #c7d2fe;
+    transform: scale(0.97);
 }
 
 #response {
-    margin-top: 30px;
-    font-size: 1.5em;
-    color: #333;
+    margin: 18px 0 10px 0;
+    font-size: 1.2em;
+    color: #444;
+    min-height: 1.5em;
+}
+
+#scene {
+    min-height: 80px;
+    margin-bottom: 18px;
+    transition: all 0.3s;
+}
+
+.scene-emoji {
+    font-size: 3em;
+    display: block;
+    margin: 0 auto 8px auto;
+}
+
+.scene-text {
+    font-size: 1.1em;
+    color: #555;
 }
 
 #garden {
-    margin-top: 40px;
-    min-height: 100px;
+    margin-top: 20px;
+    min-height: 60px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .flower {
-    font-size: 2.5em;
+    font-size: 2em;
     transition: transform 0.2s;
+    cursor: pointer;
 }
 
 .flower:hover {
@@ -52,15 +92,18 @@ button:active {
 }
 
 @media (max-width: 600px) {
+    .container {
+        padding: 12px 2vw 24px 2vw;
+    }
     h1 {
-        font-size: 2em;
+        font-size: 1.6em;
     }
     button {
-        width: 90%;
+        width: 100%;
         font-size: 1em;
         padding: 12px 0;
     }
     #garden {
-        gap: 5px;
+        gap: 4px;
     }
 }
