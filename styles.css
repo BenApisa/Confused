@@ -107,3 +107,18 @@ button:active {
         gap: 4px;
     }
 }
+/* Add to styles.css */
+.scene-image {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 10px auto;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(60,60,120,0.18);
+    animation: pop-in 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+@keyframes pop-in {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}

@@ -8,9 +8,9 @@ function showMessage(answer) {
             <div class="scene-text">A sad rain falls as you ponder your answer...</div>
         `;
     } else if (answer === 'No') {
-        // Angry scene
+        // Angry scene with image
         scene.innerHTML = `
-            <span class="scene-emoji">😡💥</span>
+            <img src="images/angry.png" alt="Angry" class="scene-image" />
             <div class="scene-text">An angry storm brews in the distance!</div>
         `;
     } else {
