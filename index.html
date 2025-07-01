@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CONFUSED</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Add this line -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -10,7 +11,9 @@
     <button onclick="showMessage('Yes')">Yes</button>
     <button onclick="showMessage('No')">No</button>
     <button onclick="showMessage('Maybe')">Maybe</button>
+    <button onclick="addFlower()">🌸 Add Flower</button> <!-- New button -->
     <p id="response"></p>
+    <div id="garden"></div> <!-- Flower container -->
     <script src="script.js"></script>
 </body>
 </html>
