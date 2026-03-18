@@ -107,6 +107,92 @@ button:active {
         gap: 4px;
     }
 }
+
+/* Mobile / phone optimizations */
+@media (max-width: 480px) {
+    :root {
+        --page-padding: 14px;
+    }
+
+    body {
+        background: linear-gradient(135deg, #eef2ff 0%, #fff 100%);
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 18px;
+        padding: 18px;
+        border-radius: 14px;
+        box-shadow: 0 6px 20px rgba(40,40,90,0.08);
+    }
+
+    h1 {
+        font-size: 1.4rem;
+        letter-spacing: 1px;
+        margin-bottom: 14px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        font-size: 1.05rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(60,60,120,0.06);
+    }
+
+    .stop-light {
+        top: 8px;
+        right: 8px;
+        padding: 6px 10px;
+        font-size: 0.95rem;
+    }
+
+    #response {
+        font-size: 1rem;
+    }
+
+    /* make video fit and keep 16:9 ratio */
+    .scene-video {
+        width: calc(100vw - 48px);
+        max-width: 100%;
+        height: calc((100vw - 48px) * 9 / 16);
+        border-radius: 10px;
+    }
+
+    .scene-image {
+        max-height: 40vh;
+        object-fit: contain;
+    }
+
+    /* big flowers scaled down and placed above UI on phones */
+    .big-flower {
+        z-index: 950;
+        font-size: clamp(36px, 14vw, 96px) !important;
+    }
+
+    /* lighten animations on mobile to save CPU / battery */
+    body.lightshow::before {
+        animation-duration: 10s;
+        opacity: 0.9;
+    }
+
+    /* hide confetti on small screens to avoid jank */
+    .confetti { display: none !important; }
+
+    /* make raindrops thinner and less frequent */
+    .drop {
+        width: 1.4px;
+        height: 16vh;
+        filter: blur(0.4px);
+        opacity: 0.85;
+    }
+}
+
 /* Add to styles.css */
 .scene-image {
     max-width: 100%;
@@ -130,4 +216,239 @@ button:active {
     margin-top: 40px;
     margin-bottom: 10px;
     letter-spacing: 2px;
+}
+
+/* Lightshow visuals */
+body.lightshow {
+    /* keep content readable above animated layer */
+    background: #000;
+    color: #fff;
+    transition: background 0.2s ease;
+}
+
+body.lightshow .container {
+    background: rgba(255,255,255,0.06);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px) saturate(120%);
+    color: #fff;
+}
+
+/* animated overlay using pseudo-element */
+body.lightshow::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(255,92,92,0.22), transparent 20%),
+      radial-gradient(circle at 80% 90%, rgba(94,255,182,0.18), transparent 20%),
+      radial-gradient(circle at 50% 60%, rgba(120,110,255,0.18), transparent 25%);
+    mix-blend-mode: screen;
+    animation: lightMove 6s linear infinite, strobe 1.8s steps(2) infinite;
+    opacity: 0.95;
+}
+
+/* subtle hue rotation to shift colors */
+body.lightshow .container,
+body.lightshow h1,
+body.lightshow button,
+body.lightshow .scene-text {
+    animation: hueShift 8s linear infinite;
+}
+
+/* Stop button */
+.stop-light {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 3;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+}
+
+/* ensure main content sits above overlay */
+.container { position: relative; z-index: 2; }
+
+/* keyframes */
+@keyframes lightMove {
+    0% { transform: translateY(0) scale(1); filter: hue-rotate(0deg) blur(0px); }
+    25% { transform: translateY(-6%) scale(1.02); filter: hue-rotate(40deg) blur(2px); }
+    50% { transform: translateY(0%) scale(1.04); filter: hue-rotate(80deg) blur(1px); }
+    75% { transform: translateY(6%) scale(1.02); filter: hue-rotate(120deg) blur(2px); }
+    100% { transform: translateY(0) scale(1); filter: hue-rotate(0deg) blur(0px); }
+}
+
+@keyframes hueShift {
+    0% { filter: hue-rotate(0deg); }
+    50% { filter: hue-rotate(180deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+/* gentle strobe pulse (not too intense) */
+@keyframes strobe {
+    0% { opacity: 0.9; }
+    50% { opacity: 0.6; }
+    100% { opacity: 0.9; }
+}
+
+/* make the video visible and centered on top */
+.video-wrap { position: relative; z-index: 2; max-width: 100%; }
+.scene-video { width: 100%; height: 320px; border-radius: 12px; display:block; margin: 0 auto; z-index:2; }
+
+/* Dark + rain effect for 'No' (ensure this is after other rules) */
+body.dark-rain {
+    background: linear-gradient(180deg, #0b0f14 0%, #071018 100%) !important;
+    color: #e6eef8;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.dark-rain .container {
+    background: rgba(10, 14, 18, 0.85);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+    color: #dfeefe;
+    position: relative;
+    z-index: 1000; /* make sure content is above rain */
+}
+
+/* rain container */
+.rain {
+    position: fixed;
+    inset: 0;
+    z-index: 800;           /* below UI (container has higher z-index) */
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* raindrop */
+.drop {
+    position: absolute;
+    top: -25vh;
+    width: 2px;
+    height: 20vh;
+    background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.06));
+    border-radius: 50%;
+    filter: blur(0.6px);
+    animation-name: fall, sway;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite, infinite;
+    opacity: 0.9;
+}
+
+/* vertical fall */
+@keyframes fall {
+    0% { transform: translateY(-10vh); opacity: 0; }
+    5% { opacity: 1; }
+    95% { opacity: 1; }
+    100% { transform: translateY(110vh); opacity: 0; }
+}
+
+/* slight horizontal sway */
+@keyframes sway {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(8px); }
+    100% { transform: translateX(0); }
+}
+
+/* ensure main UI sits above the rain */
+.container,
+.stop-light,
+.scene-video,
+.scene-image {
+    position: relative;
+    z-index: 1000;
+}
+
+/* Big random flowers overlay */
+.big-flower {
+    position: fixed;
+    user-select: none;
+    cursor: pointer;
+    pointer-events: auto;
+    line-height: 1;
+    display: inline-block;
+    transform-origin: center;
+    transition: transform 0.45s cubic-bezier(.2,.9,.2,1), opacity 0.35s;
+    opacity: 0;
+    z-index: 900; /* sits above background but below UI controls (UI uses 1000+) */
+    text-shadow: 0 4px 18px rgba(0,0,0,0.35);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* applied immediately after insertion to pop-in */
+.big-flower.popped {
+    transform: var(--rot) scale(1);
+    opacity: 1;
+}
+
+/* gentle floating animation */
+.big-flower.animate {
+    animation: floatY 6s ease-in-out infinite;
+}
+
+@keyframes floatY {
+    0%   { transform: var(--rot) translateY(0) scale(1); }
+    50%  { transform: var(--rot) translateY(-14px) scale(1.02); }
+    100% { transform: var(--rot) translateY(0) scale(1); }
+}
+
+/* smaller screens: cap size */
+@media (max-width: 600px) {
+    .big-flower { z-index: 850; }
+    .big-flower { /* ensure not too huge on phones */
+        font-size: clamp(48px, 10vw, 120px) !important;
+    }
+}
+
+/* Confetti visuals */
+.confetti {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1100;
+    overflow: hidden;
+}
+
+.confetti-piece {
+    position: absolute;
+    top: -10vh;
+    border-radius: 2px;
+    will-change: transform, opacity;
+    animation-name: confettiFall, confettiSpin;
+    animation-timing-function: linear, ease;
+    animation-iteration-count: 1, infinite;
+    /* animation-duration and delay set inline for variety */
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+    70% { opacity: 1; }
+    100% { transform: translateY(120vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes confettiSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.confetti-fade {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+    body.lightshow::before { opacity: 0.6 !important; }
+    .big-flower.animate { animation: none !important; }
 }
