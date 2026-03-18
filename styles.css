@@ -376,10 +376,11 @@ body.dark-rain .container {
     transform-origin: center;
     transition: transform 0.45s cubic-bezier(.2,.9,.2,1), opacity 0.35s;
     opacity: 0;
-    z-index: 900; /* sits above background but below UI controls (UI uses 1000+) */
+    z-index: 1202; /* increased so flowers sit above container (container uses 1000) */
     text-shadow: 0 4px 18px rgba(0,0,0,0.35);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    will-change: transform, opacity;
 }
 
 /* applied immediately after insertion to pop-in */
@@ -401,9 +402,11 @@ body.dark-rain .container {
 
 /* smaller screens: cap size */
 @media (max-width: 600px) {
-    .big-flower { z-index: 850; }
+    .big-flower { z-index: 1202; }
     .big-flower { /* ensure not too huge on phones */
-        font-size: clamp(48px, 10vw, 120px) !important;
+        font-size: clamp(40px, 12vw, 96px) !important;
+        pointer-events: auto;
+        touch-action: manipulation;
     }
 }
 
